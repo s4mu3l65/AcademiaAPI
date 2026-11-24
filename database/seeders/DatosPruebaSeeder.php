@@ -100,6 +100,34 @@ class DatosPruebaSeeder extends Seeder
                 'activo' => true,
             ]
         );
+
+        // Asignar sedes a los usuarios de prueba.
+        $profesorITI->sede_id = 1;
+        $profesorITI->save();
+
+        $profesorISW->sede_id = 2;
+        $profesorISW->save();
+
+        $usuarioEstudiante1->sede_id = 1;
+        $usuarioEstudiante1->save();
+
+        $usuarioEstudiante2->sede_id = 2;
+        $usuarioEstudiante2->save();
+
+        // Crear usuario coordinador.
+        $coordinador = User::firstOrCreate(
+            ['email' => 'coordinador@academica.test'],
+            [
+                'name' => 'Coordinador de TI',
+                'password' => Hash::make('Password123!'),
+                'carrera_id' => $sistemas->id,
+            ]
+        );
+
+        $coordinador->sede_id = 1;
+        $coordinador->save();
+
+        $coordinador->syncRoles(['coordinador']);
     }
 }
 

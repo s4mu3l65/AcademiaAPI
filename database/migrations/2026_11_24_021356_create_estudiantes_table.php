@@ -13,6 +13,21 @@ return new class extends Migration
     {
         Schema::create('estudiantes', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('user_id')
+                ->unique()
+                ->constrained('users')
+                ->cascadeOnDelete();
+
+            $table->foreignId('carrera_id')
+                ->constrained('carreras')
+                ->restrictOnDelete();
+
+            $table->string('cedula')->unique();
+            $table->string('nombre');
+            $table->string('apellido');
+            $table->string('correo_institucional')->unique();
+            $table->boolean('activo')->default(true);
             $table->timestamps();
         });
     }
